@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>SLA Breach Monitor</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -226,8 +227,8 @@
       <p>Machines where Snacks, Water Selections, or Other Drinks has fallen to 15% or below of that section's planogram baseline &mdash; the confirmed breach rule from the stock&nbsp;availability baseline.</p>
     </div>
     <div class="meta">
-      Inventory export pulled <b>9 Sep 2026 &middot; 13:31 BST</b><br>
-      Terminals export pulled <b>9 Sep 2026 &middot; 14:33 BST</b><br>
+      Inventory export pulled <b>9 Sep 2026 &middot; 17:33 BST</b><br>
+      Terminals export pulled <b>9 Sep 2026 &middot; 17:58 BST</b><br>
       Source: Invenda CMS
     </div>
   </header>
@@ -235,13 +236,13 @@
   <div class="tiles">
     <div class="tile crit">
       <div class="label">Machines in breach</div>
-      <div class="value num">7</div>
+      <div class="value num">6</div>
       <div class="sub">of 631 documented &middot; 1%</div>
     </div>
     <div class="tile warn">
       <div class="label">Machines offline</div>
-      <div class="value num">53</div>
-      <div class="sub">of 631 documented &middot; 8%</div>
+      <div class="value num">58</div>
+      <div class="sub">of 631 documented &middot; 9%</div>
     </div>
     <div class="tile">
       <div class="label">Empty on all 3 sections</div>
@@ -250,13 +251,13 @@
     </div>
     <div class="tile accent">
       <div class="label">Most breached section</div>
-      <div class="value num">5</div>
+      <div class="value num">4</div>
       <div class="sub">Water Selections &middot; vs. 2 Snacks, 3 Other Drinks</div>
     </div>
     <div class="tile">
       <div class="label">Partners affected</div>
-      <div class="value num">4</div>
-      <div class="sub">of 8 &middot; Abercromby, JW Vending, VendEase (Premier Inn), WLV</div>
+      <div class="value num">3</div>
+      <div class="sub">of 8 &middot; Abercromby, JW Vending, WLV</div>
     </div>
   </div>
 
@@ -283,14 +284,14 @@
   </div>
 
   <div class="callout">
-    <b>Scope of this view:</b> excludes a block of 78 terminals that carry no site name anywhere &mdash; not in the partner location docs, not even in Invenda's own terminal record, only a raw code like <span class="num">IVM-Mars-UK-6813</span>. 25 of them read as breaching, most completely empty, but they can't be attributed to a partner yet. Worth confirming with Invenda whether these are live machines awaiting restock or units still being commissioned. Full detail on all 709 machines, including this block, lives in <span class="num">VendEase_Inventory_Stock_Report.xlsx</span>.
+    <b>Scope of this view:</b> excludes a block of 78 terminals that carry no site name anywhere &mdash; not in the partner location docs, not even in Invenda's own terminal record, only a raw code like <span class="num">IVM-Mars-UK-6813</span>. 22 of them read as breaching, 11 completely empty across all three sections, but they can't be attributed to a partner yet. Worth confirming with Invenda whether these are live machines awaiting restock or units still being commissioned. Full detail on all 709 machines, including this block, lives in <span class="num">VendEase_Inventory_Stock_Report.xlsx</span>.
   </div>
 
   <footer>VendEase SLA Dashboard &middot; generated from the Invenda inventory export, 9 September 2026</footer>
 </div>
 
 <script>
-const DATA = {"generatedAt":"9 September 2026","totals":{"machines":631,"breaches":7,"rate":1.1,"all3":1,"bySection":{"Snacks":2,"Water Selections":5,"Other Drinks":3},"offline":{"count":53,"of":631,"rate":8.4}},"partnerRates":[{"partner":"Abercromby Vending","breaches":3,"machines":80,"rate":3.8,"offline":14},{"partner":"JW Vending","breaches":2,"machines":60,"rate":3.3,"offline":16},{"partner":"WLV","breaches":1,"machines":184,"rate":0.5,"offline":6},{"partner":"VendEase (Premier Inn)","breaches":1,"machines":230,"rate":0.4,"offline":11},{"partner":"Bettavend","breaches":0,"machines":9,"rate":0.0,"offline":0},{"partner":"VendEase (Travelodge)","breaches":0,"machines":29,"rate":0.0,"offline":1},{"partner":"V4 Vending","breaches":0,"machines":1,"rate":0.0,"offline":0},{"partner":"Wilkes Vending","breaches":0,"machines":38,"rate":0.0,"offline":5}],"breaches":[{"partner":"Abercromby Vending","site":"Premier Inn Falkirk East","serial":"SVM0000294","snacks":{"na":false,"avail":0,"baseline":286,"pct":0,"breach":true,"daysBreached":1},"water":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"online":"Offline","daysOffline":1},{"partner":"Abercromby Vending","site":"Premier Inn Milngavie","serial":"SVM0000296","snacks":{"na":false,"avail":136,"baseline":286,"pct":47.6,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"online":"Offline","daysOffline":1},{"partner":"Abercromby Vending","site":"Premier Inn Inverness Centre Riverness","serial":"IVM0006295","snacks":{"na":false,"avail":163,"baseline":286,"pct":57.0,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":14,"baseline":40,"pct":35.0,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0},{"partner":"JW Vending","site":"Premier Inn Cardiff Bay (1)","serial":"IVM0007853","snacks":{"na":false,"avail":151,"baseline":264,"pct":57.2,"breach":false,"daysBreached":0},"water":{"na":false,"avail":15,"baseline":50,"pct":30.0,"breach":false,"daysBreached":0},"other":{"na":false,"avail":4,"baseline":70,"pct":5.7,"breach":true,"daysBreached":1},"online":"Online","daysOffline":0},{"partner":"JW Vending","site":"Premier Inn Cardiff Bay (2)","serial":"IVM0007855","snacks":{"na":false,"avail":187,"baseline":264,"pct":70.8,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":50,"pct":0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":23,"baseline":70,"pct":32.9,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0},{"partner":"VendEase (Premier Inn)","site":"Premier Inn Staines-upon-Thames","serial":"SVM0000229","snacks":{"na":false,"avail":146,"baseline":264,"pct":55.3,"breach":false,"daysBreached":0},"water":{"na":false,"avail":7,"baseline":50,"pct":14.0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":32,"baseline":70,"pct":45.7,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0},{"partner":"WLV","site":"Premier Inn Manchester (Swinton)","serial":"SVM0000248","snacks":{"na":false,"avail":25,"baseline":250,"pct":10.0,"breach":true,"daysBreached":1},"water":{"na":false,"avail":29,"baseline":50,"pct":58.0,"breach":false,"daysBreached":0},"other":{"na":false,"avail":58,"baseline":70,"pct":82.9,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0}]};
+const DATA = {"generatedAt":"9 September 2026","totals":{"machines":631,"breaches":6,"rate":1.0,"all3":1,"bySection":{"Snacks":2,"Water Selections":4,"Other Drinks":3},"offline":{"count":58,"of":631,"rate":9.2}},"partnerRates":[{"partner":"Abercromby Vending","breaches":3,"machines":80,"rate":3.8,"offline":14},{"partner":"JW Vending","breaches":2,"machines":60,"rate":3.3,"offline":16},{"partner":"WLV","breaches":1,"machines":184,"rate":0.5,"offline":8},{"partner":"VendEase (Premier Inn)","breaches":0,"machines":230,"rate":0.0,"offline":13},{"partner":"VendEase (Travelodge)","breaches":0,"machines":29,"rate":0.0,"offline":1},{"partner":"Wilkes Vending","breaches":0,"machines":38,"rate":0.0,"offline":6},{"partner":"V4 Vending","breaches":0,"machines":1,"rate":0.0,"offline":0},{"partner":"Bettavend","breaches":0,"machines":9,"rate":0.0,"offline":0}],"breaches":[{"partner":"Abercromby Vending","site":"Premier Inn Inverness Centre Riverness","serial":"IVM0006295","snacks":{"na":false,"avail":163,"baseline":286,"pct":57.0,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":40,"pct":0.0,"breach":true,"daysBreached":3},"other":{"na":false,"avail":14,"baseline":40,"pct":35.0,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0},{"partner":"Abercromby Vending","site":"Premier Inn Falkirk East","serial":"SVM0000294","snacks":{"na":false,"avail":0,"baseline":286,"pct":0.0,"breach":true,"daysBreached":3},"water":{"na":false,"avail":0,"baseline":40,"pct":0.0,"breach":true,"daysBreached":3},"other":{"na":false,"avail":0,"baseline":40,"pct":0.0,"breach":true,"daysBreached":3},"online":"Offline","daysOffline":3},{"partner":"Abercromby Vending","site":"Premier Inn Milngavie","serial":"SVM0000296","snacks":{"na":false,"avail":136,"baseline":286,"pct":47.6,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":40,"pct":0.0,"breach":true,"daysBreached":3},"other":{"na":false,"avail":0,"baseline":40,"pct":0.0,"breach":true,"daysBreached":3},"online":"Offline","daysOffline":3},{"partner":"WLV","site":"Premier Inn Manchester (Swinton)","serial":"SVM0000248","snacks":{"na":false,"avail":24,"baseline":250,"pct":9.6,"breach":true,"daysBreached":3},"water":{"na":false,"avail":29,"baseline":50,"pct":58.0,"breach":false,"daysBreached":0},"other":{"na":false,"avail":57,"baseline":70,"pct":81.4,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0},{"partner":"JW Vending","site":"Premier Inn Cardiff Bay (1)","serial":"IVM0007853","snacks":{"na":false,"avail":151,"baseline":264,"pct":57.2,"breach":false,"daysBreached":0},"water":{"na":false,"avail":15,"baseline":50,"pct":30.0,"breach":false,"daysBreached":0},"other":{"na":false,"avail":4,"baseline":70,"pct":5.7,"breach":true,"daysBreached":3},"online":"Online","daysOffline":0},{"partner":"JW Vending","site":"Premier Inn Cardiff Bay (2)","serial":"IVM0007855","snacks":{"na":false,"avail":187,"baseline":264,"pct":70.8,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":50,"pct":0.0,"breach":true,"daysBreached":3},"other":{"na":false,"avail":22,"baseline":70,"pct":31.4,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0}]};
 
 const SECTIONS = [
   {key:'snacks', field:'snacks'},
@@ -404,4 +405,13 @@ function renderCards(){
 }
 
 renderCards();
+
+// ---------- Kiosk auto-refresh ----------
+// This page is meant to stay open on a screen continuously. Reload periodically
+// so it always shows the latest published data without anyone touching it —
+// the dashboard itself refreshes ~5x/day, so a 10-minute reload cadence is more
+// than fast enough to pick each one up promptly.
+setTimeout(function(){ location.reload(); }, 10 * 60 * 1000);
 </script>
+
+</body></html>
