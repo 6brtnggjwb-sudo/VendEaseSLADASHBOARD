@@ -1,0 +1,407 @@
+<title>SLA Breach Monitor</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#EFF2F7;
+    --surface:#FFFFFF;
+    --surface-alt:#E7ECF3;
+    --border:#D6DEE8;
+    --ink:#151C26;
+    --ink-2:#4A5567;
+    --ink-3:#7C879A;
+    --accent:#204A96;
+    --accent-soft:#DEE8FA;
+    --accent-ink:#0F2E63;
+    --good:#1C8459;
+    --good-soft:#DFF2E9;
+    --warn:#A96D0A;
+    --warn-soft:#FAEDD8;
+    --crit:#B93A2A;
+    --crit-soft:#FBE3E0;
+    --crit-track:#F1D8D5;
+    --partner-1:#6955EE;
+    --partner-2:#C34B00;
+    --partner-3:#D0126F;
+    --partner-4:#0078E9;
+    --shadow: 0 1px 2px rgba(20,30,50,.06), 0 8px 24px -12px rgba(20,30,50,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E131A;
+      --surface:#161E28;
+      --surface-alt:#1C2531;
+      --border:#2B3644;
+      --ink:#E7ECF2;
+      --ink-2:#AAB6C6;
+      --ink-3:#75828F;
+      --accent:#7BA3E8;
+      --accent-soft:#1C3155;
+      --accent-ink:#DCE7FA;
+      --good:#49BE87;
+      --good-soft:#15382A;
+      --warn:#E0AA45;
+      --warn-soft:#3A2D12;
+      --crit:#EA7263;
+      --crit-soft:#3E1C18;
+      --crit-track:#4A2621;
+      --partner-1:#8785E5;
+      --partner-2:#CA7F15;
+      --partner-3:#D56A8E;
+      --partner-4:#349AE1;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E131A;
+    --surface:#161E28;
+    --surface-alt:#1C2531;
+    --border:#2B3644;
+    --ink:#E7ECF2;
+    --ink-2:#AAB6C6;
+    --ink-3:#75828F;
+    --accent:#7BA3E8;
+    --accent-soft:#1C3155;
+    --accent-ink:#DCE7FA;
+    --good:#49BE87;
+    --good-soft:#15382A;
+    --warn:#E0AA45;
+    --warn-soft:#3A2D12;
+    --crit:#EA7263;
+    --crit-soft:#3E1C18;
+    --crit-track:#4A2621;
+    --partner-1:#8785E5;
+    --partner-2:#CA7F15;
+    --partner-3:#D56A8E;
+    --partner-4:#349AE1;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    padding:28px 20px 64px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px;}
+
+  h1,h2,h3{font-family:"Barlow Semi Condensed",system-ui,sans-serif;font-weight:700;text-wrap:balance;margin:0;}
+  .num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;}
+
+  /* ---------- Header ---------- */
+  .eyebrow{
+    font-family:"Barlow Semi Condensed",sans-serif;
+    font-weight:600;
+    font-size:.78rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--crit);box-shadow:0 0 0 3px var(--crit-soft);}
+  header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;}
+  header h1{font-size:2.15rem;letter-spacing:.01em;color:var(--ink);}
+  header p{margin:6px 0 0;color:var(--ink-2);font-size:.95rem;max-width:56ch;}
+  .meta{
+    font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--ink-3);
+    text-align:right;line-height:1.6;
+  }
+  .meta b{color:var(--ink-2);font-weight:600;}
+
+  /* ---------- Stat tiles ---------- */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;}
+  .tile{
+    background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    padding:16px 18px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);
+  }
+  .tile .label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;}
+  .tile .value{font-family:"IBM Plex Mono",monospace;font-size:1.9rem;font-weight:600;line-height:1;}
+  .tile .sub{font-size:.8rem;color:var(--ink-2);}
+  .tile.crit .value{color:var(--crit);}
+  .tile.warn .value{color:var(--warn);}
+  .tile.accent .value{color:var(--accent);}
+
+  /* ---------- Panels ---------- */
+  .panel{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:20px 22px;box-shadow:var(--shadow);
+  }
+  .panel > h2{font-size:1.15rem;margin-bottom:2px;}
+  .panel .desc{color:var(--ink-2);font-size:.85rem;margin:0 0 16px;}
+
+  /* ---------- Chart ---------- */
+  .chart-row{display:flex;align-items:center;gap:10px;height:30px;}
+  .chart-label{
+    width:190px;flex:0 0 auto;font-size:.82rem;color:var(--ink-2);
+    text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .chart-track{flex:1;position:relative;height:18px;background:var(--surface-alt);border-radius:4px;overflow:visible;}
+  .chart-fill{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:var(--accent);}
+  .chart-fill.hot{background:var(--crit);}
+  .chart-val{
+    font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--ink-2);
+    width:150px;flex:0 0 auto;
+  }
+  .chart-val b{color:var(--ink);font-weight:600;}
+
+  /* ---------- Partner cards ---------- */
+  .partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;align-items:start;}
+  .partner-card{
+    border:1px solid var(--border);border-left:4px solid var(--pc, var(--border));border-radius:10px;
+    background:var(--surface-alt);overflow:hidden;display:flex;flex-direction:column;
+  }
+  .partner-card-head{
+    padding:13px 18px;border-bottom:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+    background:var(--surface);
+    background:color-mix(in oklab, var(--pc, var(--ink-3)) 12%, var(--surface));
+  }
+  .partner-card-head h3{font-size:1.05rem;color:var(--pc, var(--ink));}
+  .partner-card-sub{font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--crit);white-space:nowrap;}
+  .machine-list{display:flex;flex-direction:column;}
+  .machine{padding:14px 18px;border-bottom:1px solid var(--border);background:var(--surface);}
+  .machine:last-child{border-bottom:none;}
+  .machine-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px;}
+  .machine-site{font-weight:600;color:var(--ink);font-size:.92rem;}
+  .machine-serial{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:.76rem;color:var(--ink-3);margin-left:8px;}
+  .machine-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .m-label{
+    font-family:"Barlow Semi Condensed",sans-serif;font-weight:600;font-size:.68rem;
+    text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:5px;
+  }
+
+  .metric{
+    display:inline-flex;align-items:baseline;gap:5px;font-family:"IBM Plex Mono",monospace;
+    font-size:.92rem;font-weight:600;padding:3px 0;
+  }
+  .metric::before{
+    content:"";width:8px;height:8px;border-radius:50%;flex:0 0 auto;
+    background:currentColor;align-self:center;
+  }
+  .metric.good{color:var(--good);}
+  .metric.warn{color:var(--warn);}
+  .metric.crit{color:var(--crit);}
+  .metric.na{font-family:"IBM Plex Mono",monospace;font-size:.82rem;font-weight:400;color:var(--ink-3);}
+  .metric.na::before{display:none;}
+  .metric-days{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--crit);margin-top:2px;}
+  .metric-days.offline{color:var(--warn);}
+
+  .legend-row{display:flex;gap:22px;align-items:center;margin:12px 2px 0;font-size:.78rem;color:var(--ink-3);flex-wrap:wrap;}
+  .legend-row .item{display:flex;align-items:center;gap:6px;}
+  .legend-swatch{width:12px;height:9px;border-radius:2px;}
+
+  .callout{
+    border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;
+    padding:12px 16px;font-size:.85rem;color:var(--accent-ink);line-height:1.55;
+  }
+  .callout b{font-weight:600;}
+
+  footer{color:var(--ink-3);font-size:.78rem;text-align:center;padding-top:10px;}
+
+  @media (max-width:820px){
+    .chart-label{width:120px;font-size:.75rem;}
+    .chart-val{width:110px;}
+    header{align-items:flex-start;}
+    .meta{text-align:left;}
+    .partner-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:600px){
+    .machine-metrics{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:360px){
+    .machine-metrics{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .chart-fill{transition:all .18s ease;}
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="eyebrow"><span class="dot"></span>VendEase &middot; Live Inventory Feed</div>
+      <h1>SLA Breach Monitor</h1>
+      <p>Machines where Snacks, Water Selections, or Other Drinks has fallen to 15% or below of that section's planogram baseline &mdash; the confirmed breach rule from the stock&nbsp;availability baseline.</p>
+    </div>
+    <div class="meta">
+      Inventory export pulled <b>9 Sep 2026 &middot; 13:31 BST</b><br>
+      Terminals export pulled <b>9 Sep 2026 &middot; 14:33 BST</b><br>
+      Source: Invenda CMS
+    </div>
+  </header>
+
+  <div class="tiles">
+    <div class="tile crit">
+      <div class="label">Machines in breach</div>
+      <div class="value num">7</div>
+      <div class="sub">of 631 documented &middot; 1%</div>
+    </div>
+    <div class="tile warn">
+      <div class="label">Machines offline</div>
+      <div class="value num">53</div>
+      <div class="sub">of 631 documented &middot; 8%</div>
+    </div>
+    <div class="tile">
+      <div class="label">Empty on all 3 sections</div>
+      <div class="value num">1</div>
+      <div class="sub">Snacks, Water &amp; Other Drinks all &le;15%</div>
+    </div>
+    <div class="tile accent">
+      <div class="label">Most breached section</div>
+      <div class="value num">5</div>
+      <div class="sub">Water Selections &middot; vs. 2 Snacks, 3 Other Drinks</div>
+    </div>
+    <div class="tile">
+      <div class="label">Partners affected</div>
+      <div class="value num">4</div>
+      <div class="sub">of 8 &middot; Abercromby, JW Vending, VendEase (Premier Inn), WLV</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Breach rate by partner</h2>
+    <p class="desc">Share of each partner's fleet currently in breach &mdash; raw count and fleet size labelled alongside.</p>
+    <div id="chart"></div>
+    <div class="legend-row">
+      <div class="item"><span class="legend-swatch" style="background:var(--crit)"></span>&ge;1 breach</div>
+      <div class="item"><span class="legend-swatch" style="background:var(--accent);opacity:.35"></span>clean fleet</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Breaching machines, by partner</h2>
+    <p class="desc">Each value is current effective stock as a share of that section's planogram baseline. Where a machine is also offline, its reading may be stale rather than a confirmed empty shelf.</p>
+    <div class="legend-row">
+      <div class="item"><span class="legend-swatch" style="background:var(--good)"></span>&ge;21% healthy</div>
+      <div class="item"><span class="legend-swatch" style="background:var(--warn)"></span>11&ndash;20% low</div>
+      <div class="item"><span class="legend-swatch" style="background:var(--crit)"></span>&le;10% critical</div>
+    </div>
+
+    <div id="cards" class="partner-grid"></div>
+  </div>
+
+  <div class="callout">
+    <b>Scope of this view:</b> excludes a block of 78 terminals that carry no site name anywhere &mdash; not in the partner location docs, not even in Invenda's own terminal record, only a raw code like <span class="num">IVM-Mars-UK-6813</span>. 25 of them read as breaching, most completely empty, but they can't be attributed to a partner yet. Worth confirming with Invenda whether these are live machines awaiting restock or units still being commissioned. Full detail on all 709 machines, including this block, lives in <span class="num">VendEase_Inventory_Stock_Report.xlsx</span>.
+  </div>
+
+  <footer>VendEase SLA Dashboard &middot; generated from the Invenda inventory export, 9 September 2026</footer>
+</div>
+
+<script>
+const DATA = {"generatedAt":"9 September 2026","totals":{"machines":631,"breaches":7,"rate":1.1,"all3":1,"bySection":{"Snacks":2,"Water Selections":5,"Other Drinks":3},"offline":{"count":53,"of":631,"rate":8.4}},"partnerRates":[{"partner":"Abercromby Vending","breaches":3,"machines":80,"rate":3.8,"offline":14},{"partner":"JW Vending","breaches":2,"machines":60,"rate":3.3,"offline":16},{"partner":"WLV","breaches":1,"machines":184,"rate":0.5,"offline":6},{"partner":"VendEase (Premier Inn)","breaches":1,"machines":230,"rate":0.4,"offline":11},{"partner":"Bettavend","breaches":0,"machines":9,"rate":0.0,"offline":0},{"partner":"VendEase (Travelodge)","breaches":0,"machines":29,"rate":0.0,"offline":1},{"partner":"V4 Vending","breaches":0,"machines":1,"rate":0.0,"offline":0},{"partner":"Wilkes Vending","breaches":0,"machines":38,"rate":0.0,"offline":5}],"breaches":[{"partner":"Abercromby Vending","site":"Premier Inn Falkirk East","serial":"SVM0000294","snacks":{"na":false,"avail":0,"baseline":286,"pct":0,"breach":true,"daysBreached":1},"water":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"online":"Offline","daysOffline":1},{"partner":"Abercromby Vending","site":"Premier Inn Milngavie","serial":"SVM0000296","snacks":{"na":false,"avail":136,"baseline":286,"pct":47.6,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"online":"Offline","daysOffline":1},{"partner":"Abercromby Vending","site":"Premier Inn Inverness Centre Riverness","serial":"IVM0006295","snacks":{"na":false,"avail":163,"baseline":286,"pct":57.0,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":40,"pct":0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":14,"baseline":40,"pct":35.0,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0},{"partner":"JW Vending","site":"Premier Inn Cardiff Bay (1)","serial":"IVM0007853","snacks":{"na":false,"avail":151,"baseline":264,"pct":57.2,"breach":false,"daysBreached":0},"water":{"na":false,"avail":15,"baseline":50,"pct":30.0,"breach":false,"daysBreached":0},"other":{"na":false,"avail":4,"baseline":70,"pct":5.7,"breach":true,"daysBreached":1},"online":"Online","daysOffline":0},{"partner":"JW Vending","site":"Premier Inn Cardiff Bay (2)","serial":"IVM0007855","snacks":{"na":false,"avail":187,"baseline":264,"pct":70.8,"breach":false,"daysBreached":0},"water":{"na":false,"avail":0,"baseline":50,"pct":0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":23,"baseline":70,"pct":32.9,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0},{"partner":"VendEase (Premier Inn)","site":"Premier Inn Staines-upon-Thames","serial":"SVM0000229","snacks":{"na":false,"avail":146,"baseline":264,"pct":55.3,"breach":false,"daysBreached":0},"water":{"na":false,"avail":7,"baseline":50,"pct":14.0,"breach":true,"daysBreached":1},"other":{"na":false,"avail":32,"baseline":70,"pct":45.7,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0},{"partner":"WLV","site":"Premier Inn Manchester (Swinton)","serial":"SVM0000248","snacks":{"na":false,"avail":25,"baseline":250,"pct":10.0,"breach":true,"daysBreached":1},"water":{"na":false,"avail":29,"baseline":50,"pct":58.0,"breach":false,"daysBreached":0},"other":{"na":false,"avail":58,"baseline":70,"pct":82.9,"breach":false,"daysBreached":0},"online":"Online","daysOffline":0}]};
+
+const SECTIONS = [
+  {key:'snacks', field:'snacks'},
+  {key:'water', field:'water'},
+  {key:'other', field:'other'},
+];
+
+function metricHTML(sec){
+  if(sec.na) return '<span class="metric na">not fitted</span>';
+  const cls = sec.pct <= 10 ? 'crit' : sec.pct <= 20 ? 'warn' : 'good';
+  const days = sec.breach && sec.daysBreached
+    ? `<div class="metric-days">Breaching ${sec.daysBreached} ${sec.daysBreached===1?'day':'days'}</div>`
+    : '';
+  return `<span class="metric ${cls}">${Math.floor(sec.pct)}%</span>${days}`;
+}
+
+function offlineHTML(r){
+  if(r.online === 'Offline'){
+    return `<span class="metric warn">${r.daysOffline} ${r.daysOffline===1?'day':'days'}</span>`;
+  }
+  return `<span class="metric good">Online</span>`;
+}
+
+// Emptiest machines float to the top of each partner's list: most sections
+// completely empty first, then lowest average stock among machines tied on that.
+function emptyScore(row){
+  const secs = SECTIONS.map(s=>row[s.field]).filter(s=>!s.na);
+  const zeroCount = secs.filter(s=>s.avail===0).length;
+  const avgPct = secs.length ? secs.reduce((sum,s)=>sum+s.pct,0)/secs.length : 100;
+  return {zeroCount, avgPct};
+}
+
+// Site names for the undocumented batch repeat the serial in the raw terminal
+// code (e.g. "IVM-Mars-UK-4729 IVM0006238") — trim that trailing duplicate.
+function cleanSite(site, serial){
+  return site.endsWith(' ' + serial) ? site.slice(0, -(serial.length + 1)) : site;
+}
+
+// ---------- Chart ----------
+const chartEl = document.getElementById('chart');
+const maxRate = Math.max(...DATA.partnerRates.map(p=>p.rate), 5);
+DATA.partnerRates.forEach(p=>{
+  const row = document.createElement('div');
+  row.className = 'chart-row';
+  const w = (p.rate / maxRate * 100).toFixed(1);
+  const rateLabel = p.machines ? Math.floor(p.breaches / p.machines * 100) : 0;
+  row.innerHTML = `
+    <div class="chart-label">${p.partner}</div>
+    <div class="chart-track"><div class="chart-fill ${p.breaches>0?'hot':''}" style="width:${p.breaches>0?w:1}%; opacity:${p.breaches>0?1:.35}"></div></div>
+    <div class="chart-val"><b>${rateLabel}%</b> &nbsp;(${p.breaches} of ${p.machines})</div>
+  `;
+  chartEl.appendChild(row);
+});
+
+// ---------- Partner cards ----------
+// fixed categorical color per partner, assigned in the same order as partnerRates —
+// never reused for status (good/warn/crit are reserved for stock-level metrics above)
+const PARTNER_COLORS = {
+  'Abercromby Vending': 'var(--partner-1)',
+  'JW Vending': 'var(--partner-2)',
+  'WLV': 'var(--partner-3)',
+  'VendEase (Premier Inn)': 'var(--partner-4)',
+};
+
+// group breaches by partner, in the same order they appear in partnerRates
+const partnerOrder = DATA.partnerRates.filter(p=>p.breaches>0).map(p=>p.partner);
+const byPartner = new Map(partnerOrder.map(p=>[p, DATA.breaches.filter(b=>b.partner===p)]));
+
+const cardsEl = document.getElementById('cards');
+
+function machineHTML(r){
+  return `<div class="machine">
+    <div class="machine-head">
+      <div class="machine-site">${cleanSite(r.site, r.serial)}<span class="machine-serial">${r.serial}</span></div>
+    </div>
+    <div class="machine-metrics">
+      <div><div class="m-label">Water</div>${metricHTML(r.water)}</div>
+      <div><div class="m-label">Snacks</div>${metricHTML(r.snacks)}</div>
+      <div><div class="m-label">Other Drinks</div>${metricHTML(r.other)}</div>
+      <div><div class="m-label">Offline</div>${offlineHTML(r)}</div>
+    </div>
+  </div>`;
+}
+
+function renderCards(){
+  cardsEl.innerHTML = '';
+
+  partnerOrder.forEach(p=>{
+    const rate = DATA.partnerRates.find(x=>x.partner===p);
+    const machines = byPartner.get(p)
+      .slice()
+      .sort((a,b)=>{
+        const ea = emptyScore(a), eb = emptyScore(b);
+        if(eb.zeroCount !== ea.zeroCount) return eb.zeroCount - ea.zeroCount;
+        return ea.avgPct - eb.avgPct;
+      });
+
+    const cardRate = rate.machines ? Math.floor(rate.breaches / rate.machines * 100) : 0;
+    const card = document.createElement('div');
+    card.className = 'partner-card';
+    card.style.setProperty('--pc', PARTNER_COLORS[p] || 'var(--ink-3)');
+    card.innerHTML = `
+      <div class="partner-card-head">
+        <h3>${p}</h3>
+        <div class="partner-card-sub">${rate.breaches} of ${rate.machines} machines &middot; ${cardRate}%</div>
+      </div>
+      <div class="machine-list">${machines.map(machineHTML).join('')}</div>
+    `;
+    cardsEl.appendChild(card);
+  });
+}
+
+renderCards();
+</script>
