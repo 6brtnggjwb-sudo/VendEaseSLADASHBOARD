@@ -83,9 +83,9 @@
     background:var(--bg);
     color:var(--ink);
     font-family:"IBM Plex Sans",system-ui,sans-serif;
-    padding:28px 20px 64px;
+    padding:16px 18px 24px;
   }
-  .wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:22px;}
+  .wrap{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
 
   h1,h2,h3{font-family:"Barlow Semi Condensed",system-ui,sans-serif;font-weight:700;text-wrap:balance;margin:0;}
   .num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;}
@@ -94,124 +94,123 @@
   .eyebrow{
     font-family:"Barlow Semi Condensed",sans-serif;
     font-weight:600;
-    font-size:.78rem;
-    letter-spacing:.12em;
+    font-size:.72rem;
+    letter-spacing:.11em;
     text-transform:uppercase;
     color:var(--accent);
-    display:flex;align-items:center;gap:8px;
+    display:flex;align-items:center;gap:7px;
   }
-  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--crit);box-shadow:0 0 0 3px var(--crit-soft);}
-  header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;}
-  header h1{font-size:2.15rem;letter-spacing:.01em;color:var(--ink);}
-  header p{margin:6px 0 0;color:var(--ink-2);font-size:.95rem;max-width:56ch;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--crit);box-shadow:0 0 0 3px var(--crit-soft);}
+  header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;}
+  header h1{font-size:1.55rem;letter-spacing:.01em;color:var(--ink);}
+  header p{margin:3px 0 0;color:var(--ink-2);font-size:.78rem;max-width:60ch;}
   .meta{
-    font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--ink-3);
-    text-align:right;line-height:1.6;
+    font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--ink-3);
+    text-align:right;line-height:1.4;
   }
   .meta b{color:var(--ink-2);font-weight:600;}
 
   /* ---------- Stat tiles ---------- */
-  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;}
   .tile{
-    background:var(--surface);border:1px solid var(--border);border-radius:10px;
-    padding:16px 18px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);
+    background:var(--surface);border:1px solid var(--border);border-radius:8px;
+    padding:8px 12px;display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow);
   }
-  .tile .label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;}
-  .tile .value{font-family:"IBM Plex Mono",monospace;font-size:1.9rem;font-weight:600;line-height:1;}
-  .tile .sub{font-size:.8rem;color:var(--ink-2);}
+  .tile .label{font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600;}
+  .tile .value{font-family:"IBM Plex Mono",monospace;font-size:1.35rem;font-weight:600;line-height:1;}
+  .tile .sub{font-size:.68rem;color:var(--ink-2);}
   .tile.crit .value{color:var(--crit);}
   .tile.warn .value{color:var(--warn);}
   .tile.accent .value{color:var(--accent);}
 
   /* ---------- Panels ---------- */
   .panel{
-    background:var(--surface);border:1px solid var(--border);border-radius:12px;
-    padding:20px 22px;box-shadow:var(--shadow);
+    background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    padding:10px 14px;box-shadow:var(--shadow);
   }
-  .panel > h2{font-size:1.15rem;margin-bottom:2px;}
-  .panel .desc{color:var(--ink-2);font-size:.85rem;margin:0 0 16px;}
+  .panel > h2{font-size:.92rem;margin-bottom:1px;}
+  .panel .desc{color:var(--ink-2);font-size:.7rem;margin:0 0 6px;}
 
   /* ---------- Chart ---------- */
-  .chart-row{display:flex;align-items:center;gap:10px;height:30px;}
+  .chart-row{display:flex;align-items:center;gap:8px;height:19px;}
   .chart-label{
-    width:190px;flex:0 0 auto;font-size:.82rem;color:var(--ink-2);
+    width:170px;flex:0 0 auto;font-size:.72rem;color:var(--ink-2);
     text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .chart-track{flex:1;position:relative;height:18px;background:var(--surface-alt);border-radius:4px;overflow:visible;}
-  .chart-fill{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:var(--accent);}
+  .chart-track{flex:1;position:relative;height:11px;background:var(--surface-alt);border-radius:3px;overflow:visible;}
+  .chart-fill{position:absolute;left:0;top:0;height:100%;border-radius:3px;background:var(--accent);}
   .chart-fill.hot{background:var(--crit);}
   .chart-val{
-    font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--ink-2);
-    width:150px;flex:0 0 auto;
+    font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--ink-2);
+    width:135px;flex:0 0 auto;
   }
   .chart-val b{color:var(--ink);font-weight:600;}
 
   /* ---------- Partner cards ---------- */
-  .partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;align-items:start;}
+  .partner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:8px;align-items:start;}
   .partner-card{
-    border:1px solid var(--border);border-left:4px solid var(--pc, var(--border));border-radius:10px;
+    border:1px solid var(--border);border-left:4px solid var(--pc, var(--border));border-radius:8px;
     background:var(--surface-alt);overflow:hidden;display:flex;flex-direction:column;
   }
   .partner-card-head{
-    padding:13px 18px;border-bottom:1px solid var(--border);
+    padding:6px 12px;border-bottom:1px solid var(--border);
     display:flex;justify-content:space-between;align-items:baseline;gap:10px;
     background:var(--surface);
     background:color-mix(in oklab, var(--pc, var(--ink-3)) 12%, var(--surface));
   }
-  .partner-card-head h3{font-size:1.05rem;color:var(--pc, var(--ink));}
-  .partner-card-sub{font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--crit);white-space:nowrap;}
+  .partner-card-head h3{font-size:.88rem;color:var(--pc, var(--ink));}
+  .partner-card-sub{font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--crit);white-space:nowrap;}
   .machine-list{display:flex;flex-direction:column;}
-  .machine{padding:14px 18px;border-bottom:1px solid var(--border);background:var(--surface);}
+  .machine{padding:6px 12px;border-bottom:1px solid var(--border);background:var(--surface);}
   .machine:last-child{border-bottom:none;}
-  .machine-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px;}
-  .machine-site{font-weight:600;color:var(--ink);font-size:.92rem;}
-  .machine-serial{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:.76rem;color:var(--ink-3);margin-left:8px;}
-  .machine-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .machine-metrics{display:grid;grid-template-columns:minmax(140px,1.6fr) repeat(5,1fr);gap:8px;align-items:start;}
+  .metric-cell{display:flex;flex-direction:column;min-width:0;}
+  .metric-location{font-weight:600;color:var(--ink);font-size:.76rem;line-height:1.25;}
+  .metric-location .machine-serial{display:block;margin-left:0;margin-top:1px;}
   .m-label{
-    font-family:"Barlow Semi Condensed",sans-serif;font-weight:600;font-size:.68rem;
-    text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:5px;
+    font-family:"Barlow Semi Condensed",sans-serif;font-weight:600;font-size:.58rem;
+    text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin-bottom:2px;
   }
 
   .metric{
-    display:inline-flex;align-items:baseline;gap:5px;font-family:"IBM Plex Mono",monospace;
-    font-size:.92rem;font-weight:600;padding:3px 0;
+    display:inline-flex;align-items:baseline;gap:4px;font-family:"IBM Plex Mono",monospace;
+    font-size:.78rem;font-weight:600;padding:1px 0;
   }
   .metric::before{
-    content:"";width:8px;height:8px;border-radius:50%;flex:0 0 auto;
+    content:"";width:6px;height:6px;border-radius:50%;flex:0 0 auto;
     background:currentColor;align-self:center;
   }
   .metric.good{color:var(--good);}
   .metric.warn{color:var(--warn);}
   .metric.crit{color:var(--crit);}
-  .metric.na{font-family:"IBM Plex Mono",monospace;font-size:.82rem;font-weight:400;color:var(--ink-3);}
+  .metric.na{font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:400;color:var(--ink-3);}
   .metric.na::before{display:none;}
-  .metric-days{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--crit);margin-top:2px;}
-  .metric-days.offline{color:var(--warn);}
+  .machine-serial{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:.66rem;color:var(--ink-3);}
 
-  .legend-row{display:flex;gap:22px;align-items:center;margin:12px 2px 0;font-size:.78rem;color:var(--ink-3);flex-wrap:wrap;}
-  .legend-row .item{display:flex;align-items:center;gap:6px;}
-  .legend-swatch{width:12px;height:9px;border-radius:2px;}
+  .legend-row{display:flex;gap:16px;align-items:center;margin:4px 2px 0;font-size:.68rem;color:var(--ink-3);flex-wrap:wrap;}
+  .legend-row .item{display:flex;align-items:center;gap:5px;}
+  .legend-swatch{width:11px;height:8px;border-radius:2px;}
 
   .callout{
-    border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 8px 8px 0;
-    padding:12px 16px;font-size:.85rem;color:var(--accent-ink);line-height:1.55;
+    border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 6px 6px 0;
+    padding:7px 12px;font-size:.72rem;color:var(--accent-ink);line-height:1.4;
   }
   .callout b{font-weight:600;}
 
-  footer{color:var(--ink-3);font-size:.78rem;text-align:center;padding-top:10px;}
+  footer{color:var(--ink-3);font-size:.66rem;text-align:center;padding-top:2px;}
 
   @media (max-width:820px){
-    .chart-label{width:120px;font-size:.75rem;}
-    .chart-val{width:110px;}
+    .chart-label{width:110px;font-size:.68rem;}
+    .chart-val{width:100px;}
     header{align-items:flex-start;}
     .meta{text-align:left;}
     .partner-grid{grid-template-columns:1fr;}
   }
-  @media (max-width:600px){
-    .machine-metrics{grid-template-columns:repeat(2,1fr);}
+  @media (max-width:640px){
+    .machine-metrics{grid-template-columns:1fr repeat(2,1fr);}
   }
-  @media (max-width:360px){
-    .machine-metrics{grid-template-columns:1fr;}
+  @media (max-width:400px){
+    .machine-metrics{grid-template-columns:1fr 1fr;}
   }
   @media (prefers-reduced-motion:no-preference){
     .chart-fill{transition:all .18s ease;}
@@ -302,17 +301,24 @@ const SECTIONS = [
 function metricHTML(sec){
   if(sec.na) return '<span class="metric na">not fitted</span>';
   const cls = sec.pct <= 10 ? 'crit' : sec.pct <= 20 ? 'warn' : 'good';
-  const days = sec.breach && sec.daysBreached
-    ? `<div class="metric-days">Breaching ${sec.daysBreached} ${sec.daysBreached===1?'day':'days'}</div>`
-    : '';
-  return `<span class="metric ${cls}">${Math.floor(sec.pct)}%</span>${days}`;
+  return `<span class="metric ${cls}">${Math.floor(sec.pct)}%</span>`;
 }
 
-function offlineHTML(r){
-  if(r.online === 'Offline'){
-    return `<span class="metric warn">${r.daysOffline} ${r.daysOffline===1?'day':'days'}</span>`;
-  }
-  return `<span class="metric good">Online</span>`;
+function onlineHTML(r){
+  return r.online === 'Offline'
+    ? `<span class="metric warn">No</span>`
+    : `<span class="metric good">Yes</span>`;
+}
+
+// Days = how long ago the earliest of this machine's currently-breaching
+// sections first went into breach (the max of the active per-section streaks
+// from day-counters.json — a longer streak means an earlier onset date).
+// Clears once every breaching section on the machine is restocked.
+function daysHTML(r){
+  const secs = [r.water, r.snacks, r.other].filter(s => !s.na && s.breach);
+  if(!secs.length) return `<span class="metric na">&mdash;</span>`;
+  const days = Math.max(...secs.map(s => s.daysBreached || 0));
+  return `<span class="metric crit">${days}d</span>`;
 }
 
 // Emptiest machines float to the top of each partner's list: most sections
@@ -364,14 +370,16 @@ const cardsEl = document.getElementById('cards');
 
 function machineHTML(r){
   return `<div class="machine">
-    <div class="machine-head">
-      <div class="machine-site">${cleanSite(r.site, r.serial)}<span class="machine-serial">${r.serial}</span></div>
-    </div>
     <div class="machine-metrics">
-      <div><div class="m-label">Water</div>${metricHTML(r.water)}</div>
-      <div><div class="m-label">Snacks</div>${metricHTML(r.snacks)}</div>
-      <div><div class="m-label">Other Drinks</div>${metricHTML(r.other)}</div>
-      <div><div class="m-label">Offline</div>${offlineHTML(r)}</div>
+      <div class="metric-cell">
+        <div class="m-label">Location</div>
+        <div class="metric-location">${cleanSite(r.site, r.serial)}<span class="machine-serial">${r.serial}</span></div>
+      </div>
+      <div class="metric-cell"><div class="m-label">Water</div>${metricHTML(r.water)}</div>
+      <div class="metric-cell"><div class="m-label">Snacks</div>${metricHTML(r.snacks)}</div>
+      <div class="metric-cell"><div class="m-label">Other Drinks</div>${metricHTML(r.other)}</div>
+      <div class="metric-cell"><div class="m-label">Online</div>${onlineHTML(r)}</div>
+      <div class="metric-cell"><div class="m-label">Days</div>${daysHTML(r)}</div>
     </div>
   </div>`;
 }
